@@ -3,18 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.com.mercadolibre.Magneto.service;
+package co.com.mercadolibre.Magneto.dto;
 
-import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author Crist
  */
-
-public interface DnaService {
+@Getter
+@Setter
+@NoArgsConstructor
+public class DnaDTO {
     
-    boolean isMutant(String[] dna);
-    
+    private String[] dna;
     
 }
