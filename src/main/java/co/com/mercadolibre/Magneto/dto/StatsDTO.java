@@ -24,8 +24,4 @@ public class StatsDTO {
     
     private long ratio;
     
-    private long getRatio() {
-        return this.countMutantDna / this.countHumanDna;
-    }
-    
 }

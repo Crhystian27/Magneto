@@ -7,6 +7,7 @@ package co.com.mercadolibre.Magneto.repository;
 
 import co.com.mercadolibre.Magneto.model.DnaRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -18,4 +19,11 @@ import org.springframework.stereotype.Repository;
 public interface DnaRecordRepository extends JpaRepository<DnaRecord, Long>{
     
     
+    @Query("SELECT COUNT(*) FROM Dna_Record WHERE mutant = true")
+    int countMutant();
+    
+    @Query("SELECT COUNT(*) FROM Dna_Record WHERE mutant= false")
+    int countHuman();
+    
+     
 }
