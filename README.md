@@ -9,7 +9,12 @@ Un humano es mutante, si se encuentra más de una secuencia de cuatro letras igu
 
 ## Comenzando 🚀
 
+Proyecto desplegado en HEROKU
+
 ### HTTP POST → api/v1/mutant
+```
+https://magneto-mercadolibre.herokuapp.com/api/v1/mutant
+```
 ```
 {
 "dna":["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]
@@ -18,6 +23,9 @@ Un humano es mutante, si se encuentra más de una secuencia de cuatro letras igu
 En caso de verificar un mutante, debería retorna un HTTP 200-OK, en caso contrario un 403-Forbidden
 
 ### HTTP GET → api/v1/stats
+```
+https://magneto-mercadolibre.herokuapp.com/api/v1/stats
+```
 ```
 {
   “count_mutant_dna”:40, 
