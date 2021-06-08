@@ -6,7 +6,6 @@
 package co.com.mercadolibre.Magneto.service.impl;
 
 import co.com.mercadolibre.Magneto.service.DnaService;
-import java.util.regex.Pattern;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,8 +22,6 @@ public class DnaServiceImpl implements DnaService {
     public boolean isMutant(String[] dna) {
         this.dna = dna;
         
-       //TODO falta validar que solo entre caractheres A, G, C, T
-
         return horizontalMatches(dna)
                 + diagonals(arrayToMatrix(dna), dna.length)
                 + diagonals(rotateMatrix(arrayToMatrix(dna), dna.length), dna.length)
@@ -51,7 +48,7 @@ public class DnaServiceImpl implements DnaService {
         return horizontalMatches(string);
     }
 
-    private  int horizontalMatches(String[] dna) {
+    private int horizontalMatches(String[] dna) {
 
         int val = 0;
         for (String compare : dna) {
@@ -68,7 +65,7 @@ public class DnaServiceImpl implements DnaService {
         return val;
     }
 
-    private  int vertical(String[][] matrix) {
+    private int vertical(String[][] matrix) {
 
         String separator = ",";
         StringBuilder result = new StringBuilder();
@@ -86,7 +83,7 @@ public class DnaServiceImpl implements DnaService {
         return horizontalMatches(string);
     }
 
-    private  String[][] rotateMatrix(String[][] matrix, int n) {
+    private String[][] rotateMatrix(String[][] matrix, int n) {
 
         String[][] newMatrix = new String[n][n];
         for (int i = 0; i < n; i++) {
@@ -98,7 +95,7 @@ public class DnaServiceImpl implements DnaService {
         return newMatrix;
     }
 
-    private  String[][] arrayToMatrix(String[] dna) {
+    private String[][] arrayToMatrix(String[] dna) {
 
         String[][] matrix = new String[dna.length][dna.length];
         for (int i = 0; i < dna.length; i++) {

@@ -18,10 +18,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class StatsDTO {
     
-    private long countMutantDna;
+    private float count_mutant_dna;
     
-    private long countHumanDna;
+    private float count_human_dna;
     
-    private long ratio;
+    private float ratio;
     
 }

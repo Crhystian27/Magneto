@@ -10,8 +10,9 @@ import co.com.mercadolibre.Magneto.dto.StatsDTO;
 import co.com.mercadolibre.Magneto.model.DnaRecord;
 import co.com.mercadolibre.Magneto.repository.DnaRecordRepository;
 import co.com.mercadolibre.Magneto.service.DnaService;
-import co.com.mercadolibre.Magneto.service.util.Util;
+
 import java.util.Arrays;
+import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,32 +29,40 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/")
 public class DnaController {
-    
+
     private final DnaService dnaService;
-    
+
     @Autowired
     private DnaRecordRepository repository;
 
     public DnaController(DnaService dnaService) {
         this.dnaService = dnaService;
     }
-    
+
     @GetMapping("stats")
-    public StatsDTO displayStats(){
+    public StatsDTO displayStats() {
         StatsDTO stats = new StatsDTO();
-        stats.setCountMutantDna(repository.countMutant());
-        stats.setCountHumanDna(repository.countHuman());
-        stats.setRatio(stats.getCountMutantDna()/stats.getCountHumanDna());
+        stats.setCount_mutant_dna(repository.countMutant());
+        stats.setCount_human_dna(repository.countAll());
+        stats.setRatio(stats.getCount_mutant_dna() / stats.getCount_human_dna());
         return stats;
     }
-    
-    @PostMapping("dna")
+
+    @PostMapping("mutant")
     public ResponseEntity verifyAndSaveDna(@RequestBody DnaDTO dna) {
-        DnaRecord record = new DnaRecord();  
-        boolean isValid = dnaService.isMutant(Util.parseToArray(dna.getDna()));
+
+        for (String dna1 : dna.getDna()) {
+            if (!Pattern.matches("([ACTG])+", dna1)) {
+                return new ResponseEntity(HttpStatus.FORBIDDEN);
+            }
+        }
+
+        DnaRecord record = new DnaRecord();
+        boolean isValid = dnaService.isMutant(dna.getDna());
         record.setDna(Arrays.toString(dna.getDna()));
         record.setMutant(isValid);
         this.repository.save(record);
         return new ResponseEntity(isValid, isValid ? HttpStatus.OK : HttpStatus.FORBIDDEN);
+
     }
 }

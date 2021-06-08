@@ -14,16 +14,15 @@ import org.springframework.stereotype.Repository;
  *
  * @author Crist
  */
-
 @Repository
-public interface DnaRecordRepository extends JpaRepository<DnaRecord, Long>{
-    
-    
-    @Query("SELECT COUNT(*) FROM Dna_Record WHERE mutant = true")
-    int countMutant();
-    
-    @Query("SELECT COUNT(*) FROM Dna_Record WHERE mutant= false")
-    int countHuman();
-    
-     
+public interface DnaRecordRepository extends JpaRepository<DnaRecord, Long> {
+
+    @Query(value = "SELECT COUNT(*) FROM Dna_Record WHERE mutant = true",
+            nativeQuery = true)
+    long countMutant();
+
+    @Query(value = "SELECT COUNT(*) FROM Dna_Record",
+            nativeQuery = true)
+    long countAll();
+
 }
